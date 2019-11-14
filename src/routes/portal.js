@@ -57,6 +57,7 @@ app.put('/comentario', (req, res) => {
 });
 
 app.post('/insert', (req, res) => {
+    //console.log(req.body);
     const folioData = {
         folio_previo: req.body.folio_previo,
         fecha_previo: req.body.fecha_previo,
@@ -67,7 +68,7 @@ app.post('/insert', (req, res) => {
         id_empresa: req.body.id_empresa,
         usuario: req.body.usuario,
         comentario_in: req.body.comentario_in,
-        estatus: 1
+        estatus: req.body.estatus
     };
     
     const almacenData = {
@@ -108,41 +109,9 @@ app.post('/insert', (req, res) => {
     });
 });
 
-
-app.post('/insertDetalles', (req, res) => {
-    const detalledata = req.body.detalle;
-    const articulodata = req.body.articulo;
-    folio.insertarticulo(articulodata, (err, data) => {
-        if (err){
-            res.json({
-                success: false,
-                message: err
-            });
-        }else{
-            
-            folio.insertDetalles(detalledata, (err, data) => {
-                if (err){
-                    res.json({
-                        success: false,
-                        message: err
-                    });
-                }else{
-                    res.json({
-                        success: true,
-                        message: "¡Registro exitoso!"
-                    });
-                    console.log("Articulos insertados correctamente");
-                }
-            });
-        }
-    });
-    
-   
-});
-
-app.post('/insertArticulo', (req, res) => {
+app.post('/insertDtl', (req, res) => {
     const reqdata = req.body;
-    folio.insertarticulo(reqdata, (err, data) => {
+    folio.insertDetalles(reqdata, (err, data) => {
         if (err){
             res.json({
                 success: false,
@@ -156,6 +125,8 @@ app.post('/insertArticulo', (req, res) => {
         }
     });
 });
+
+
 
 
 }

@@ -23,9 +23,7 @@ foliosModel.getFolios = (callback) => {
 foliosModel.getDetalles = (id, callback) => {
     //console.log(idEmpresa);
     if (dbAdmin) {
-        dbAdmin.query(`select d.*, a.articulo from detalles_folio as d 
-        LEFT JOIN articulos as a on d.id_articulo = a.id_articulo
-        where d.id_detalles = `+id, function(err, rows) {
+        dbAdmin.query(`select articulo from detalles_folio where folio_oc = `+id, function(err, rows) {
             if (err) {
                 callback(err,null);
                 throw err;
@@ -147,6 +145,7 @@ foliosModel.insertProveedor = (reqData, callback) => {
 foliosModel.insertDetalles = (reqData, callback) => {
     if (dbAdmin){
         let row;
+        console.log(reqData);
         for(let item of reqData) {
             item.pendiente = parseFloat(item.cantidad) - parseFloat(item.recibido);
             item.pendiente =  item.pendiente.toFixed(2);
@@ -172,16 +171,23 @@ foliosModel.insertarticulo = (reqData, callback) => {
                 WHERE 
                 EXISTS 
                 (select * 
-                    from  empresa as e 
-                    WHERE a.id_empresa =`+item.id_empresa+` and a.id_articulo =`+item.id_articulo+`)`, (error, rows) => {
+                    from  articulos as e 
+                    WHERE a.id_empresa =`+item.id_empresa+` and a.id_articulo ='`+item.id_articulo+`')`, (error, rows) => {
                 if (error) {
                     //console.log(error);
-                    callback(error,null);
-                    throw error;
+                    dbAdmin.query(`INSERT INTO articulos SET ? `, item, (error, rows) => {
+                        if (error) {
+                            //console.log(error);
+                            callback(error,null);
+                            throw error;
+                        } else {                  
+                            row= rows;
+                        }
+                    });
                 } else {                  
                     row= rows;
                     if(row.length> 0){
-                        console.log(row) 
+                        console.log(row); 
                     }else{
                         dbAdmin.query(`INSERT INTO articulos SET ? `, item, (error, rows) => {
                             if (error) {
@@ -199,5 +205,50 @@ foliosModel.insertarticulo = (reqData, callback) => {
         callback(null, row);  
     }
 }
+
+foliosModel.insertDetalleComp=(reqData,callback)=>{
+    //console.log(error);
+    if(dbAdmin)
+    {
+    let row;
+        for (var item of reqData){
+        dbAdmin.query(`INSERT INTO detalle_folios SET ? `, item, (error, rows) => {
+            if (error) {
+                //console.log(error);
+                callback(error,null);
+                throw error;
+            } else {                  
+                row= rows;
+            }
+        });
+        }
+        callback(null, row);
+    }
+}
+
+foliosModel.insertart=(reqData,callback)=>{
+    //console.log(error);
+    if(dbAdmin)
+    {
+      let row;
+      //console.log(reqData.length);
+        for (var item of reqData){
+          dbAdmin.query(`Select * from articulos where id_articulo='` + item.id_articulo + `' and id_empresa='` + item.id_empresa + `'   `, (error, rows) => {
+              if (error) {
+                  console.log(entonc);
+                  callback(error,null);
+                  throw error;
+              } else {                  
+                  row= rows;
+                  console.log(rows);
+              }
+          });
+        }
+    
+    }
+
+}
+
+
 
 module.exports = foliosModel;

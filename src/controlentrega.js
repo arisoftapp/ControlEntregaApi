@@ -8,8 +8,8 @@ const config = require('./config');
 
 server.use(cors({ credentials: true, origin: true }));
 //settings
-const port = process.env.PORT || 3005; //Puerto de VIP Cell
-server.set('port', process.env.PORT || 3005);
+const port = process.env.PORT || 3009; //Puerto de VIP Cell
+server.set('port', process.env.PORT || 3009);
 //server.set('secret', config.secret);
 //middleware
 server.use(morgan('dev'));
@@ -23,6 +23,7 @@ require('./routes/modificar_previo')(server);
 require('./routes/crear_orden')(server);
 require('./routes/folios_orden')(server);
 require('./routes/portal')(server);
+require('./routes/modificar_back')(server);
 
 
 /*//Middleware to check whether you're auth - Todas las rutas arriba estan desprotegidas
