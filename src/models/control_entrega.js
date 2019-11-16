@@ -1,6 +1,6 @@
 let dbCOBOL = require('../dbMacro');
 let consurModel = {};
-consurModel.getPrevioCompra = (codigo,fecha,almacen, callback) => {
+consurModel.getPrevioCompra = (codigo, fecha, almacen, callback) => {
     dbCOBOL.open;
     if (dbCOBOL) {
         dbCOBOL.query(`SELECT 
@@ -31,7 +31,7 @@ consurModel.getPrevioCompra = (codigo,fecha,almacen, callback) => {
         });
     }
 };
-consurModel.getEstatus = (codigo,almacen, callback) => {
+consurModel.getEstatus = (codigo, almacen, callback) => {
     if (dbCOBOL) {
         dbCOBOL.query(`SELECT 
         CDOC_STAT as ESTATUS,
@@ -51,7 +51,7 @@ consurModel.getEstatus = (codigo,almacen, callback) => {
         });
     }
 };
-consurModel.getComplementos = (folio,almacen, callback) => {
+consurModel.getComplementos = (folio, almacen, callback) => {
     if (dbCOBOL) {
         dbCOBOL.query(`SELECT 
         CDOC_FOL as 'folio',
@@ -65,6 +65,31 @@ consurModel.getComplementos = (folio,almacen, callback) => {
         AND PUBLIC.COMDOC.CDOC_FOL='` + folio + `'
         AND PUBLIC.COMDOC.CDOC_ALM='` + almacen + `'
         AND PUBLIC.COMPRO.PRO_LLAVE=PUBLIC.COMDOC.CDOC_PRO
+    
+    `, function(err, rows) {
+            if (err) {
+                throw err;
+                callback(err, null);
+            } else {
+                callback(null, rows);
+            }
+        });
+    }
+};
+
+consurModel.getComentarios = (folio, callback) => {
+    if (dbCOBOL) {
+        dbCOBOL.query(`SELECT 
+        CREN_ART AS 'art_com',
+        CREN_CLF as 'clf_com',
+        CREN_PRO as 'pro_com',
+        CREN_COMENT as 'comentario'
+        FROM PUBLIC.COMREN
+        WHERE PUBLIC.COMREN.CREN_OPE=1
+        AND PUBLIC.COMREN.CREN_FOL='` + folio + `'
+        AND PUBLIC.COMREN.CREN_MOV='C'
+        AND PUBLIC.COMREN.CREN_CANT=-1
+    
     
     `, function(err, rows) {
             if (err) {

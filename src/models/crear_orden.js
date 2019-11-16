@@ -1,7 +1,7 @@
 let dbCOBOL = require('../dbMacro');
 let crearModel = {};
 
-crearModel.insert_comren = (folio,posicion,fecha,factor,cantidad,articulo,clasificacion,proveedor,costo,tipocambio,imp1,imp2,fechasf,imp1_tab,imp2_tab,callback) => {
+crearModel.insert_comren = (folio, posicion, fecha, factor, cantidad, articulo, clasificacion, proveedor, costo, tipocambio, imp1, imp2, fechasf, imp1_tab, imp2_tab, callback) => {
     if (dbCOBOL) {
         var sql = `INSERT INTO PUBLIC.COMREN (
 CREN_OPE,CREN_FOL,CREN_POS,CREN_TIPO,CREN_FCH,CREN_MOV,CREN_FCH_MOD,CREN_FACTOR,CREN_CANT,CREN_OPEN,CREN_ART,CREN_CLF,
@@ -14,20 +14,20 @@ CREN_FOL_PED_ESP,CREN_PRC_MAX,CREN_POS_REM,CREN_RP_CANT_SURT,CREN_RP_POS_REM,CRE
 CREN_CONTRATO,CREN_TAR,CREN_TAR_IMP,CREN_AGRUP
             ) VALUES (
                 '2',
-                '`+folio+`',
-                '`+posicion+`',
+                '` + folio + `',
+                '` + posicion + `',
                 '1',
-                '`+fecha+`',
+                '` + fecha + `',
                 'A',
                 '',
-                '`+factor+`',
-                '`+cantidad+`',
+                '` + factor + `',
+                '` + cantidad + `',
                 '0',
-                '`+articulo+`',
-                '`+clasificacion+`',
-                '`+proveedor+`',
-                '`+costo+`',
-                '`+tipocambio+`',
+                '` + articulo + `',
+                '` + clasificacion + `',
+                '` + proveedor + `',
+                '` + costo + `',
+                '` + tipocambio + `',
                 '0',
                 '0',
                 '0',
@@ -39,8 +39,8 @@ CREN_CONTRATO,CREN_TAR,CREN_TAR_IMP,CREN_AGRUP
                 '0',
                 '0',
                 'N',
-                '`+imp1+`',
-                '`+imp2+`',
+                '` + imp1 + `',
+                '` + imp2 + `',
                 '0',
                 '0',
                 '0',
@@ -59,28 +59,125 @@ CREN_CONTRATO,CREN_TAR,CREN_TAR_IMP,CREN_AGRUP
                 '0',
                 '0',
                 '0',
-                '`+fecha+`',
-                '`+fecha+`',
+                '` + fecha + `',
+                '` + fecha + `',
                 '',
-                '`+fechasf+`',
+                '` + fechasf + `',
                 '',
-                '`+posicion+`',
+                '` + posicion + `',
                 '',
-                '`+imp1_tab+`',
-                '`+imp2_tab+`',
+                '` + imp1_tab + `',
+                '` + imp2_tab + `',
                 '',
                 '',
                 'A',
                 '',
                 '',
-                '`+cantidad+`',
+                '` + cantidad + `',
                 '0',
                 '',
                 '0',
                 '0',
                 '0',
                 '0',
-                '`+fechasf+`',
+                '` + fechasf + `',
+                '0',
+                '0',
+                '',
+                '0',
+                '0',
+                '0'
+            )`;
+        dbCOBOL.queryResult(sql, function(err, rows) {
+            if (err) {
+                throw err;
+                callback(err, null);
+            } else {
+                callback(null, rows);
+            }
+        });
+    }
+};
+crearModel.insert_coment = (folio, posicion, fecha, articulo, clasificacion, proveedor, fechasf, comentario, callback) => {
+    if (dbCOBOL) {
+        var sql = `INSERT INTO PUBLIC.COMREN (
+CREN_OPE,CREN_FOL,CREN_POS,CREN_TIPO,CREN_FCH,CREN_MOV,CREN_FCH_MOD,CREN_FACTOR,CREN_CANT,CREN_OPEN,CREN_ART,CREN_CLF,
+CREN_PRO,CREN_COS,CREN_TCAM,CREN_DSC1,CREN_DSC2,CREN_DSC3,CREN_DSC4,CREN_DSC5,CREN_CAR1US,CREN_CAR2US,CREN_CAR3US,
+CREN_DSC_GLO,CREN_ARAN,CREN_EXE,CREN_IMP1,CREN_IMP2,CREN_ESTATAL,CREN_CAR1,CREN_CAR2,CREN_CAR3,CREN_CAR4,CREN_CAR5,
+CREN_CAR6,CREN_CLI,CREN_OBRA,CREN_OBR_CON,CREN_ADIC,CREN_DSC_NOCR,CREN_FOL_NOCR,CREN_CANT_NOCR,CREN_SURT,CREN_DEV,
+CREN_BACK,CREN_CANT2,CREN_FCH_ENV,CREN_FCH_REC,CREN_FCH_URE,CREN_FCH2,CREN_AUX,CREN_POS_AUX,CREN_MAS,CREN_IMP1_TAB,
+CREN_IMP2_TAB,CREN_CLIENTE,CREN_CONCEPTO,CREN_STAT,CREN_MAS_COMENT,CREN_COMENT,CREN_CANT_AUX,CREN_FCH_CADUCIDAD,
+CREN_FOL_PED_ESP,CREN_PRC_MAX,CREN_POS_REM,CREN_RP_CANT_SURT,CREN_RP_POS_REM,CREN_FCH_MODIF,CREN_GRAV_EXE,CREN_TOT_COS_CAR,
+CREN_CONTRATO,CREN_TAR,CREN_TAR_IMP,CREN_AGRUP
+            ) VALUES (
+                '2',
+                '` + folio + `',
+                '` + posicion + `',
+                '1',
+                '` + fecha + `',
+                'C',
+                '',
+                '0',
+                '-1',
+                '2',
+                '` + articulo + `',
+                '` + clasificacion + `',
+                '` + proveedor + `',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '` + comentario + `',
+                '0',
+                '0',
+                '',
+                '0',
+                '0',
+                '0',
+                '0',
+                '` + fechasf + `',
                 '0',
                 '0',
                 '',
@@ -99,7 +196,7 @@ CREN_CONTRATO,CREN_TAR,CREN_TAR_IMP,CREN_AGRUP
     }
 };
 
-crearModel.getDatos_comren = (folio,articulo,callback) => {
+crearModel.getDatos_comren = (folio, articulo, callback) => {
     if (dbCOBOL) {
         dbCOBOL.query(`SELECT 
         CREN_FACTOR AS 'factor',
@@ -115,8 +212,8 @@ crearModel.getDatos_comren = (folio,articulo,callback) => {
         PUBLIC.COMREN
         WHERE
         PUBLIC.COMREN.CREN_OPE=1 
-        AND PUBLIC.COMREN.CREN_FOL='`+folio+`' 
-        AND PUBLIC.COMREN.CREN_ART='`+articulo+`'
+        AND PUBLIC.COMREN.CREN_FOL='` + folio + `' 
+        AND PUBLIC.COMREN.CREN_ART='` + articulo + `'
     `, function(err, rows) {
             if (err) {
                 throw err;
@@ -127,7 +224,36 @@ crearModel.getDatos_comren = (folio,articulo,callback) => {
         });
     }
 };
-crearModel.insert_comdoc = (folio_orden,folio_previo,fecha,almacen,proveedor,totalreg,totaluds,tipocambio,sumatotal,iva,total,horasf,fechasf,plazo,diadescuento,dias,callback) => {
+
+crearModel.getDatos_comren = (folio, articulo, callback) => {
+    if (dbCOBOL) {
+        dbCOBOL.query(`SELECT 
+        CREN_FACTOR AS 'factor',
+        CREN_CLF AS 'clasificacion',
+        CREN_PRO AS 'proveedor',
+        CREN_COS AS 'costo',
+        CREN_TCAM AS 'tipocambio',
+        CREN_IMP1 AS 'imp1',
+        CREN_IMP2 AS 'imp2',
+        CREN_IMP1_TAB AS 'imp1_tab',
+        CREN_IMP2_TAB AS 'imp2_tab'
+        FROM
+        PUBLIC.COMREN
+        WHERE
+        PUBLIC.COMREN.CREN_OPE=1 
+        AND PUBLIC.COMREN.CREN_FOL='` + folio + `' 
+        AND PUBLIC.COMREN.CREN_ART='` + articulo + `'
+    `, function(err, rows) {
+            if (err) {
+                throw err;
+                callback(err, null);
+            } else {
+                callback(null, rows);
+            }
+        });
+    }
+};
+crearModel.insert_comdoc = (folio_orden, folio_previo, fecha, almacen, proveedor, totalreg, totaluds, tipocambio, sumatotal, iva, total, horasf, fechasf, plazo, diadescuento, dias, callback) => {
     if (dbCOBOL) {
         var sql = `INSERT INTO PUBLIC.COMDOC (
             CDOC_OPE,
@@ -276,35 +402,32 @@ crearModel.insert_comdoc = (folio_orden,folio_previo,fecha,almacen,proveedor,tot
              CDOC_FCH2
             ) VALUES (
                 '2',
-                '`+folio_orden+`',
-                '`+folio_orden+`',
+                '` + folio_orden + `',
+                '` + folio_orden + `',
                 '',
                 '1',
-                '`+folio_previo+`',
+                '` + folio_previo + `',
                 '1',
-                '`+fecha+`',
-                '`+fecha+`',
-                '`+almacen+`',
+                '` + fecha + `',
+                '` + fecha + `',
+                '` + almacen + `',
                 'N',
-                '`+proveedor+`',
-                '`+plazo+`',
-                '`+diadescuento+`',
+                '` + proveedor + `',
+                '` + plazo + `',
+                '` + diadescuento + `',
                 '0',
                 '0',
-                '`+dias+`',
+                '` + dias + `',
                 '0',
                 '0',
-                '`+totalreg+`',
-                '`+totaluds+`',
-                '0',
-                '0',
-                '0',
-                '0',
-                '0',
-                '`+tipocambio+`',
+                '` + totalreg + `',
+                '` + totaluds + `',
                 '0',
                 '0',
                 '0',
+                '0',
+                '0',
+                '` + tipocambio + `',
                 '0',
                 '0',
                 '0',
@@ -332,7 +455,10 @@ crearModel.insert_comdoc = (folio_orden,folio_previo,fecha,almacen,proveedor,tot
                 '0',
                 '0',
                 '0',
-                '`+sumatotal+`',
+                '0',
+                '0',
+                '0',
+                '` + sumatotal + `',
                 '0',
                 '0',
                 '0',
@@ -341,11 +467,11 @@ crearModel.insert_comdoc = (folio_orden,folio_previo,fecha,almacen,proveedor,tot
                 '0',
                 '0',
                 '0',
-                '`+iva+`',
+                '` + iva + `',
                 '0',
                 '0',
-                '`+iva+`',
-                '`+total+`',
+                '` + iva + `',
+                '` + total + `',
                 '',
                 '0',
                 '0',
@@ -395,7 +521,7 @@ crearModel.insert_comdoc = (folio_orden,folio_previo,fecha,almacen,proveedor,tot
                 '',
                 '0',
                 '0',
-                '`+horasf+`',
+                '` + horasf + `',
                 '',
                 '0',
                 '0',
@@ -408,7 +534,7 @@ crearModel.insert_comdoc = (folio_orden,folio_previo,fecha,almacen,proveedor,tot
                 '',
                 '',
                 '',
-                '`+fechasf+`',
+                '` + fechasf + `',
                 '',
                 '',
                 '0',
@@ -431,7 +557,7 @@ crearModel.insert_comdoc = (folio_orden,folio_previo,fecha,almacen,proveedor,tot
     }
 };
 
-crearModel.getDatos_comdoc = (folio,almacen,callback) => {
+crearModel.getDatos_comdoc = (folio, almacen, callback) => {
     if (dbCOBOL) {
         dbCOBOL.query(`SELECT 
         CDOC_PLAZO AS 'plazo',
@@ -443,8 +569,8 @@ crearModel.getDatos_comdoc = (folio,almacen,callback) => {
         PUBLIC.COMDOC
         WHERE
         PUBLIC.COMDOC.CDOC_OPE=1 
-        AND PUBLIC.COMDOC.CDOC_FOL='`+folio+`' 
-        AND PUBLIC.COMDOC.CDOC_ALM='`+almacen+`'
+        AND PUBLIC.COMDOC.CDOC_FOL='` + folio + `' 
+        AND PUBLIC.COMDOC.CDOC_ALM='` + almacen + `'
     `, function(err, rows) {
             if (err) {
                 throw err;

@@ -6,7 +6,7 @@ module.exports = function(app) {
         let folio_previo = req.params.folio_previo;
         let folio_orden = req.params.folio_orden;
         let posicion = req.params.posicion;
-        let pos_previo=req.params.pos_previo;
+        let pos_previo = req.params.pos_previo;
         let cantidad = req.params.cantidad;
         let articulo = req.params.articulo;
         let factor;
@@ -18,9 +18,9 @@ module.exports = function(app) {
         let imp2;
         let imp1_tab;
         let imp2_tab;
-        let fecha=dateFormat(new Date(), "yyyy-mm-dd");
-        let fechasf=dateFormat(new Date(), "yyyymmdd");
-        crear_orden.getDatos_comren(folio_previo,articulo,(err, data) => {
+        let fecha = dateFormat(new Date(), "yyyy-mm-dd");
+        let fechasf = dateFormat(new Date(), "yyyymmdd");
+        crear_orden.getDatos_comren(folio_previo, articulo, (err, data) => {
             if (err) {
                 res.status(500).send({
                     success: false,
@@ -28,46 +28,71 @@ module.exports = function(app) {
                 });
 
             } else {
-                if (data.length < 1) 
-                {
+                if (data.length < 1) {
                     res.json({
                         success: false,
                         message: "No encontro datos del documento"
                     });
-                }
-                else
-                {
-                    factor=data[0].factor;
-                    clasificacion=data[0].clasificacion;
-                    proveedor=data[0].proveedor;
-                    costo=data[0].costo;
-                    tipocambio=data[0].tipocambio;
-                    imp1=data[0].imp1;
-                    imp2=data[0].imp2;
-                    imp1_tab=data[0].imp1_tab;
-                    imp2_tab=data[0].imp2_tab;
-                    
-                    crear_orden.insert_comren(folio_orden,posicion,fecha,factor,cantidad,articulo,clasificacion,proveedor,costo,tipocambio,imp1,imp2,fechasf,imp1_tab,imp2_tab,(err, data) => {
+                } else {
+                    factor = data[0].factor;
+                    clasificacion = data[0].clasificacion;
+                    proveedor = data[0].proveedor;
+                    costo = data[0].costo;
+                    tipocambio = data[0].tipocambio;
+                    imp1 = data[0].imp1;
+                    imp2 = data[0].imp2;
+                    imp1_tab = data[0].imp1_tab;
+                    imp2_tab = data[0].imp2_tab;
+
+                    crear_orden.insert_comren(folio_orden, posicion, fecha, factor, cantidad, articulo, clasificacion, proveedor, costo, tipocambio, imp1, imp2, fechasf, imp1_tab, imp2_tab, (err, data) => {
                         if (err) {
                             res.status(500).send({
                                 success: false,
                                 message: 'Error al crear comdoc:' + err
                             });
-            
+
                         } else {
-                                res.json({
-                                    success: true,
-                                    message:"Se creo",
-                                    respuesta: data,
-                                });
-                            
+                            res.json({
+                                success: true,
+                                message: "Se creo",
+                                respuesta: data,
+                            });
+
                         }
-            
+
                     });
 
                 }
 
-                
+
+            }
+
+        });
+    });
+    app.get('/insert_comren_coment/:folio_orden/:posicion/:articulo/:clasificacion/:proveedor/:comentario', (req, res) => {
+        let folio_orden = req.params.folio_orden;
+        let posicion = req.params.posicion;
+        let cantidad = req.params.cantidad;
+        let articulo = req.params.articulo;
+        let clasificacion = req.params.clasificacion;
+        let proveedor = req.params.proveedor;
+        let comentario = req.params.comentario;
+        let fecha = dateFormat(new Date(), "yyyy-mm-dd");
+        let fechasf = dateFormat(new Date(), "yyyymmdd");
+        crear_orden.insert_coment(folio_orden, posicion, fecha, articulo, clasificacion, proveedor, fechasf, comentario, (err, data) => {
+            if (err) {
+                res.status(500).send({
+                    success: false,
+                    message: 'Error al insertar comentarios:' + err
+                });
+
+            } else {
+                res.json({
+                    success: true,
+                    message: "Se creo",
+                    respuesta: data,
+                });
+
             }
 
         });
@@ -77,19 +102,19 @@ module.exports = function(app) {
         let almacen = req.params.almacen;
         let folio_orden = req.params.folio_orden;
         let proveedor;
-        let totalreg= req.params.totalreg;
+        let totalreg = req.params.totalreg;
         let totaluds = req.params.totaluds;
         let tipocambio;
-        let sumatotal=req.params.sumatotal;
-        let iva=req.params.iva;
-        let total=req.params.total;
-        let fecha=dateFormat(new Date(), "yyyy-mm-dd");
-        let fechasf=dateFormat(new Date(), "yyyymmdd");
-        let horasf=dateFormat(new Date(),"hhMMss");
+        let sumatotal = req.params.sumatotal;
+        let iva = req.params.iva;
+        let total = req.params.total;
+        let fecha = dateFormat(new Date(), "yyyy-mm-dd");
+        let fechasf = dateFormat(new Date(), "yyyymmdd");
+        let horasf = dateFormat(new Date(), "hhMMss");
         let plazo;
         let diadescuento;
         let dias;
-        crear_orden.getDatos_comdoc(folio_previo,almacen,(err, data) => {
+        crear_orden.getDatos_comdoc(folio_previo, almacen, (err, data) => {
             if (err) {
                 res.status(500).send({
                     success: false,
@@ -97,20 +122,17 @@ module.exports = function(app) {
                 });
 
             } else {
-                if (data.length < 1) 
-                {
+                if (data.length < 1) {
                     res.json({
                         success: false,
                         mensaje: "No encontro datos del documento"
                     });
-                }
-                else
-                {
-                    plazo=data[0].plazo;
-                    diadescuento=data[0].descuentodias;
-                    dias=data[0].dias;
-                    proveedor=data[0].proveedor;
-                    tipocambio=data[0].tipocambio;
+                } else {
+                    plazo = data[0].plazo;
+                    diadescuento = data[0].descuentodias;
+                    dias = data[0].dias;
+                    proveedor = data[0].proveedor;
+                    tipocambio = data[0].tipocambio;
 
                     /*
                     res.json({
@@ -119,27 +141,27 @@ module.exports = function(app) {
                         respuesta:data
                     });
                     */
-                   crear_orden.insert_comdoc(folio_orden,folio_previo,fecha,almacen,proveedor,totalreg,totaluds,tipocambio,sumatotal,iva,total,horasf,fechasf,plazo,diadescuento,dias,(err, data) => {
-                    if (err) {
-                        res.status(500).send({
-                            success: false,
-                            message: 'Error al crear comdoc:' + err.message
-                        });
-        
-                    } else {
+                    crear_orden.insert_comdoc(folio_orden, folio_previo, fecha, almacen, proveedor, totalreg, totaluds, tipocambio, sumatotal, iva, total, horasf, fechasf, plazo, diadescuento, dias, (err, data) => {
+                        if (err) {
+                            res.status(500).send({
+                                success: false,
+                                message: 'Error al crear comdoc:' + err.message
+                            });
+
+                        } else {
                             res.json({
                                 success: true,
-                                message:"Se creo",
+                                message: "Se creo",
                                 respuesta: data,
                             });
-                        
-                    }
-        
-                });
+
+                        }
+
+                    });
 
                 }
 
-                
+
             }
 
         });
