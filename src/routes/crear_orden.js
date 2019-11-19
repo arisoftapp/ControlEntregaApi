@@ -140,6 +140,7 @@ module.exports = function(app) {
                         mensaje: "consulta con exito ",
                         respuesta:data
                     });
+                    
                     */
                     crear_orden.insert_comdoc(folio_orden, folio_previo, fecha, almacen, proveedor, totalreg, totaluds, tipocambio, sumatotal, iva, total, horasf, fechasf, plazo, diadescuento, dias, (err, data) => {
                         if (err) {
