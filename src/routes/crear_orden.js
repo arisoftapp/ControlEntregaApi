@@ -77,6 +77,7 @@ module.exports = function(app) {
         let clasificacion = req.params.clasificacion;
         let proveedor = req.params.proveedor;
         let comentario = req.params.comentario;
+
         let fecha = dateFormat(new Date(), "yyyy-mm-dd");
         let fechasf = dateFormat(new Date(), "yyyymmdd");
         crear_orden.insert_coment(folio_orden, posicion, fecha, articulo, clasificacion, proveedor, fechasf, comentario, (err, data) => {
