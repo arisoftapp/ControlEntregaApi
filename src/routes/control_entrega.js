@@ -46,11 +46,11 @@ module.exports = function(app) {
                                             });
                                         } else {
                                             if (data2.length == 0) {
-                                                console.log("sin comentarios");
+                                                //console.log("sin comentarios");
                                                 res.json({
                                                     success: true,
                                                     previo: data,
-                                                    comentarios: false
+                                                    success_coment: false
                                                 });
                                             } else {
                                                 res.json({
