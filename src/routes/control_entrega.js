@@ -45,11 +45,22 @@ module.exports = function(app) {
                                                 message: 'Error al consultar comentarios:' + err
                                             });
                                         } else {
-                                            res.json({
-                                                success: true,
-                                                previo: data,
-                                                comentarios: data2
-                                            });
+                                            if (data2.length == 0) {
+                                                console.log("sin comentarios");
+                                                res.json({
+                                                    success: true,
+                                                    previo: data,
+                                                    comentarios: false
+                                                });
+                                            } else {
+                                                res.json({
+                                                    success: true,
+                                                    previo: data,
+                                                    success_coment: true,
+                                                    comentarios: data2
+                                                });
+                                            }
+
 
                                         }
 

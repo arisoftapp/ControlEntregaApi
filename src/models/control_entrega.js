@@ -80,9 +80,6 @@ consurModel.getComplementos = (folio, almacen, callback) => {
 consurModel.getComentarios = (folio, callback) => {
     if (dbCOBOL) {
         dbCOBOL.query(`SELECT 
-        CREN_ART AS 'art_com',
-        CREN_CLF as 'clf_com',
-        CREN_PRO as 'pro_com',
         CREN_COMENT as 'comentario'
         FROM PUBLIC.COMREN
         WHERE PUBLIC.COMREN.CREN_OPE=1

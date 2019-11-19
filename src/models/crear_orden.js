@@ -98,7 +98,7 @@ CREN_CONTRATO,CREN_TAR,CREN_TAR_IMP,CREN_AGRUP
         });
     }
 };
-crearModel.insert_coment = (folio, posicion, fecha, articulo, clasificacion, proveedor, fechasf, comentario, callback) => {
+crearModel.insert_coment = (folio, posicion, fecha, fechasf, comentario, callback) => {
     if (dbCOBOL) {
         var sql = `INSERT INTO PUBLIC.COMREN (
 CREN_OPE,CREN_FOL,CREN_POS,CREN_TIPO,CREN_FCH,CREN_MOV,CREN_FCH_MOD,CREN_FACTOR,CREN_CANT,CREN_OPEN,CREN_ART,CREN_CLF,
@@ -120,9 +120,9 @@ CREN_CONTRATO,CREN_TAR,CREN_TAR_IMP,CREN_AGRUP
                 '0',
                 '-1',
                 '2',
-                '` + articulo + `',
-                '` + clasificacion + `',
-                '` + proveedor + `',
+                '',
+                '',
+                '',
                 '',
                 '',
                 '',
