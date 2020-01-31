@@ -155,6 +155,7 @@ module.exports = function(app) {
 
         });
     });
+
     app.get('/insert_comren_coment/:folio_orden/:posicion/:comentario', (req, res) => {
         let folio_orden = req.params.folio_orden;
         let posicion = req.params.posicion;
@@ -280,5 +281,17 @@ module.exports = function(app) {
         });
     });
 
+
+    app.post('crear_orden',(req,res)=>{
+        let json=req.body;
+        console.log(json);
+
+        res.json({
+            success: true,
+            message: "Se creo",
+            respuesta: data,
+        });
+
+    });
 
 }
