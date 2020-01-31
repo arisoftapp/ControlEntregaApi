@@ -1,7 +1,9 @@
 let dbCOBOL = require('../dbMacro');
 let consurModel = {};
+//consulta cren, cdoc, invart, se envian folio, fecha, almacen
 consurModel.getPrevioCompra = (codigo, fecha, almacen, callback) => {
     dbCOBOL.open;
+    //carga el previo de compra de macro a app todas las partidas
     if (dbCOBOL) {
         dbCOBOL.query(`SELECT 
         CREN_ART as 'articulo',
@@ -51,6 +53,7 @@ consurModel.getEstatus = (codigo, almacen, callback) => {
         });
     }
 };
+//encabezado del documento
 consurModel.getComplementos = (folio, almacen, callback) => {
     if (dbCOBOL) {
         dbCOBOL.query(`SELECT 
@@ -76,7 +79,7 @@ consurModel.getComplementos = (folio, almacen, callback) => {
         });
     }
 };
-
+//trae comentario del cren
 consurModel.getComentarios = (folio, callback) => {
     if (dbCOBOL) {
         dbCOBOL.query(`SELECT 
