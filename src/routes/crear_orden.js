@@ -288,8 +288,7 @@ module.exports = function(app) {
 
         res.json({
             success: true,
-            message: "Se creo",
-            respuesta: data,
+            message: "Se creo"
         });
 
     });
