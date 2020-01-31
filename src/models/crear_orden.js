@@ -1,7 +1,8 @@
 let dbCOBOL = require('../dbMacro');
 let crearModel = {};
 
-crearModel.insert_comren = (folio, posicion, fecha, factor, cantidad, articulo, clasificacion, proveedor, costo, tipocambio, imp1, imp2, fechasf, imp1_tab, imp2_tab, callback) => {
+crearModel.insert_comren = (folio, posicion, fecha, factor, cantidad, articulo, clasificacion, proveedor, costo, tipocambio, imp1, imp2, fechasf, imp1_tab, imp2_tab,dsc1,dsc2,dsc3,dsc4,dsc5, callback) => {
+    console.log(""+dsc1+"|"+dsc2+"|"+dsc3+"|"+dsc4+"|"+dsc5);
     if (dbCOBOL) {
         var sql = `INSERT INTO PUBLIC.COMREN (
 CREN_OPE,CREN_FOL,CREN_POS,CREN_TIPO,CREN_FCH,CREN_MOV,CREN_FCH_MOD,CREN_FACTOR,CREN_CANT,CREN_OPEN,CREN_ART,CREN_CLF,
@@ -28,11 +29,11 @@ CREN_CONTRATO,CREN_TAR,CREN_TAR_IMP,CREN_AGRUP
                 '` + proveedor + `',
                 '` + costo + `',
                 '` + tipocambio + `',
-                '0',
-                '0',
-                '0',
-                '0',
-                '0',
+                '` + dsc1 + `',
+                '` + dsc2 + `',
+                '` + dsc3 + `',
+                '` + dsc4 + `',
+                '` + dsc5 + `',
                 '0',
                 '0',
                 '0',
@@ -90,8 +91,10 @@ CREN_CONTRATO,CREN_TAR,CREN_TAR_IMP,CREN_AGRUP
             )`;
         dbCOBOL.queryResult(sql, function(err, rows) {
             if (err) {
+                console.log("error en:"+ err);
                 throw err;
                 callback(err, null);
+                
             } else {
                 callback(null, rows);
             }
@@ -99,6 +102,7 @@ CREN_CONTRATO,CREN_TAR,CREN_TAR_IMP,CREN_AGRUP
     }
 };
 crearModel.insert_coment = (folio, posicion, fecha, fechasf, comentario, callback) => {
+    console.log(comentario);
     if (dbCOBOL) {
         var sql = `INSERT INTO PUBLIC.COMREN (
 CREN_OPE,CREN_FOL,CREN_POS,CREN_TIPO,CREN_FCH,CREN_MOV,CREN_FCH_MOD,CREN_FACTOR,CREN_CANT,CREN_OPEN,CREN_ART,CREN_CLF,
@@ -187,9 +191,11 @@ CREN_CONTRATO,CREN_TAR,CREN_TAR_IMP,CREN_AGRUP
             )`;
         dbCOBOL.queryResult(sql, function(err, rows) {
             if (err) {
-                throw err;
                 callback(err, null);
+                throw err;
+                
             } else {
+                console.log(rows);
                 callback(null, rows);
             }
         });
@@ -207,7 +213,12 @@ crearModel.getDatos_comren = (folio, articulo, callback) => {
         CREN_IMP1 AS 'imp1',
         CREN_IMP2 AS 'imp2',
         CREN_IMP1_TAB AS 'imp1_tab',
-        CREN_IMP2_TAB AS 'imp2_tab'
+        CREN_IMP2_TAB AS 'imp2_tab',
+        CREN_DSC1 AS 'descuento1',
+        CREN_DSC2 AS 'descuento2',
+        CREN_DSC3 AS 'descuento3',
+        CREN_DSC4 AS 'descuento4',
+        CREN_DSC5 AS 'descuento5'
         FROM
         PUBLIC.COMREN
         WHERE
@@ -216,44 +227,17 @@ crearModel.getDatos_comren = (folio, articulo, callback) => {
         AND PUBLIC.COMREN.CREN_ART='` + articulo + `'
     `, function(err, rows) {
             if (err) {
-                throw err;
                 callback(err, null);
+                throw err;
             } else {
                 callback(null, rows);
+                
             }
         });
     }
 };
 
-crearModel.getDatos_comren = (folio, articulo, callback) => {
-    if (dbCOBOL) {
-        dbCOBOL.query(`SELECT 
-        CREN_FACTOR AS 'factor',
-        CREN_CLF AS 'clasificacion',
-        CREN_PRO AS 'proveedor',
-        CREN_COS AS 'costo',
-        CREN_TCAM AS 'tipocambio',
-        CREN_IMP1 AS 'imp1',
-        CREN_IMP2 AS 'imp2',
-        CREN_IMP1_TAB AS 'imp1_tab',
-        CREN_IMP2_TAB AS 'imp2_tab'
-        FROM
-        PUBLIC.COMREN
-        WHERE
-        PUBLIC.COMREN.CREN_OPE=1 
-        AND PUBLIC.COMREN.CREN_FOL='` + folio + `' 
-        AND PUBLIC.COMREN.CREN_ART='` + articulo + `'
-    `, function(err, rows) {
-            if (err) {
-                throw err;
-                callback(err, null);
-            } else {
-                callback(null, rows);
-            }
-        });
-    }
-};
-crearModel.insert_comdoc = (folio_orden, folio_previo, fecha, almacen, proveedor, totalreg, totaluds, tipocambio, sumatotal, iva, total, horasf, fechasf, plazo, diadescuento, dias, callback) => {
+crearModel.insert_comdoc = (folio_orden, folio_previo, fecha, almacen, proveedor, totalreg, totaluds, tipocambio, sumatotal, iva, total, horasf, fechasf, plazo, diadescuento, dias,descto,dscglo, callback) => {
     if (dbCOBOL) {
         var sql = `INSERT INTO PUBLIC.COMDOC (
             CDOC_OPE,
@@ -459,8 +443,8 @@ crearModel.insert_comdoc = (folio_orden, folio_previo, fecha, almacen, proveedor
                 '0',
                 '0',
                 '` + sumatotal + `',
-                '0',
-                '0',
+                '` + descto + `',
+                '` + dscglo + `',
                 '0',
                 '0',
                 '0',
@@ -564,7 +548,9 @@ crearModel.getDatos_comdoc = (folio, almacen, callback) => {
         CDOC_PP_DSC_1 AS 'descuentodias',
         CDOC_PP_DIAS_1 AS 'dias',
         CDOC_PRO AS 'proveedor',
-        CDOC_TCAM AS 'tipocambio'
+        CDOC_TCAM AS 'tipocambio',
+        CDOC_DESCTO AS 'descuento',
+        CDOC_DSC_GLO AS 'descuentoGlobal'
         FROM
         PUBLIC.COMDOC
         WHERE

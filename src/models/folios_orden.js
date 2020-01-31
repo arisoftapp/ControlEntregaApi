@@ -15,8 +15,9 @@ folioModel.getFolio = (folio,almacen,callback) => {
 
     `, function(err, rows) {
             if (err) {
-                throw err;
                 callback(err, null);
+                throw err;
+                
             } else {
                 callback(null, rows);
             }
