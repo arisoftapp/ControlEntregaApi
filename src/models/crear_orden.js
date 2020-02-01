@@ -1,6 +1,6 @@
 let dbCOBOL = require('../dbMacro');
 let crearModel = {};
-
+var dateFormat = require('dateformat');
 crearModel.insert_comren = (folio, posicion, fecha, factor, cantidad, articulo, clasificacion, proveedor, costo, tipocambio, imp1, imp2, fechasf, imp1_tab, imp2_tab,dsc1,dsc2,dsc3,dsc4,dsc5, callback) => {
     console.log(""+dsc1+"|"+dsc2+"|"+dsc3+"|"+dsc4+"|"+dsc5);
     if (dbCOBOL) {
