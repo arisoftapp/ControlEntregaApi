@@ -104,8 +104,8 @@ CREN_CONTRATO,CREN_TAR,CREN_TAR_IMP,CREN_AGRUP
 
 crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
     console.log("llamo insert comren json");
-    console.log(articulos);
-    console.log(folio_orden);
+    //console.log(articulos);
+    //console.log(folio_orden);
     console.log("se empezara a recorrer el articulos");
     let respuesta;
     for (var item of articulos){
@@ -207,7 +207,7 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
                     
                 } else {
                    respuesta=rows;
-                   console.log(rows);
+                   //console.log(rows);
                 }
             });
         }
