@@ -200,6 +200,7 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
                 )`;
             dbCOBOL.queryResult(sql, function(err, rows) {
                 if (err) {
+                    console.log("error en el articulo "+item.articulo);
                     console.log("error en:"+ err);
                     callback(err, null);
                     respuesta=err;
@@ -207,12 +208,13 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
                     
                 } else {
                    respuesta=rows;
+                   console.log("se inserto articulo:"+item.articulo);
                    //console.log(rows);
                 }
             });
         }
     }
-    console.log(respuesta);
+    console.log("respuesta :"+respuesta);
     callback(null, respuesta);
 };
 
