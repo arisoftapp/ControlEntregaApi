@@ -284,7 +284,7 @@ module.exports = function(app) {
 
     app.post('/crear_orden',(req,res)=>{
         console.log("crear_orden");
-        let json=req.body;
+        let json=req.body.orden;
         console.log(json);
         res.json({
             success: true,
