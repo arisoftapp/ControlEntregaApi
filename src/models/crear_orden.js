@@ -1,6 +1,7 @@
 let dbCOBOL = require('../dbMacro');
 let crearModel = {};
 var dateFormat = require('dateformat');
+var connectionString = "DSN=Macro;UID=system;PWD=manager;DATABASE=DEMOINT";
 crearModel.insert_comren = (folio, posicion, fecha, factor, cantidad, articulo, clasificacion, proveedor, costo, tipocambio, imp1, imp2, fechasf, imp1_tab, imp2_tab,dsc1,dsc2,dsc3,dsc4,dsc5, callback) => {
     console.log(""+dsc1+"|"+dsc2+"|"+dsc3+"|"+dsc4+"|"+dsc5);
     if (dbCOBOL) {
@@ -107,12 +108,27 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
     //console.log(articulos);
     //console.log(folio_orden);
     console.log("se empezara a recorrer el articulos");
+    db.open(connectionString, function(err) {
+        if (err) {
+    
+            console.log('SERVIDOR MACROPRO NO RESPONDE - VERIFIQUE QUE ESTE ENCENDIDO');
+            throw err;
+        }
+        else
+        {
+            console.log('conexion abierta');
+            
+        }
+        
+        ;
+    });
     let respuesta;
     for (var item of articulos){
         console.log(item.posicion);
         item.fecha = dateFormat(new Date(), "yyyy-mm-dd");
         item.fechasf = dateFormat(new Date(), "yyyymmdd");
-        if (dbCOBOL) {
+
+       
             var sql = `INSERT INTO PUBLIC.COMREN (
     CREN_OPE,CREN_FOL,CREN_POS,CREN_TIPO,CREN_FCH,CREN_MOV,CREN_FCH_MOD,CREN_FACTOR,CREN_CANT,CREN_OPEN,CREN_ART,CREN_CLF,
     CREN_PRO,CREN_COS,CREN_TCAM,CREN_DSC1,CREN_DSC2,CREN_DSC3,CREN_DSC4,CREN_DSC5,CREN_CAR1US,CREN_CAR2US,CREN_CAR3US,
@@ -212,8 +228,9 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
                    console.log("se inserto articulo:"+item.articulo+" "+item.posicion);
                 }
             });
-        }
+        
     };
+    dbCOBOL.close();
     console.log("respuesta :"+respuesta);
     callback(null, respuesta);
 };
