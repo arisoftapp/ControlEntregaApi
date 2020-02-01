@@ -198,7 +198,7 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
                     '0',
                     '0'
                 )`;
-            dbCOBOL.queryResultSync(sql, function(err, rows) {
+            dbCOBOL.queryResult(sql, function(err, rows) {
                 if (err) {
                     console.log("error en el articulo "+item.articulo+" "+item.posicion);
                     console.log("error en:"+ err);
