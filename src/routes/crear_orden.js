@@ -288,9 +288,11 @@ module.exports = function(app) {
             folio_previo: req.body.folio_previo,
             folio_orden:req.body.folio_orden
         };
-        const data=req.body.articulos;
+        const articulos=req.body.articulos;
         console.log(json);
-        console.log(data);
+        console.log(articulos);
+        console.log(articulos.articulo);
+        console.log(req.body.articulos.articulo);
         res.json({
             success: true,
             message: "Se creo"
