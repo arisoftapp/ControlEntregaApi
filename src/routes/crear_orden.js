@@ -283,21 +283,33 @@ module.exports = function(app) {
 
 
     app.post('/crear_orden',(req,res)=>{
-        
-        const json = {
-            folio_previo: req.body.folio_previo,
-            folio_orden:req.body.folio_orden
-        };
+ 
+        const folio_orden=req.body.folio_orden;
         const articulos=req.body.articulos;
+        /*
         console.log(json);
         console.log(articulos);
         for (var item of articulos){
             console.log(item.articulo);
         }
-        res.json({
-            success: true,
-            message: "Se creo"
-        });
+        */
+       crear_orden.insert_comren_json(folio_orden, articulos, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                success: false,
+                message: 'Error al crear comren:' + err.message
+            });
+
+        } else {
+            res.json({
+                success: true,
+                message: "Se creo",
+                respuesta: data,
+            });
+
+        }
+
+    });
 
     });
 

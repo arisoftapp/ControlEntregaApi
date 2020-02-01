@@ -101,6 +101,120 @@ CREN_CONTRATO,CREN_TAR,CREN_TAR_IMP,CREN_AGRUP
         });
     }
 };
+
+crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
+    console.log("llamo insert comren json");
+    console.log(articulos);
+    console.log(folio_orden);
+    console.log("se empezara a recorrer el articulos");
+    let respuesta;
+    for (var item of articulos){
+        //console.log(item.articulo);
+        item.fecha = dateFormat(new Date(), "yyyy-mm-dd");
+        item.fechasf = dateFormat(new Date(), "yyyymmdd");
+        if (dbCOBOL) {
+            var sql = `INSERT INTO PUBLIC.COMREN (
+    CREN_OPE,CREN_FOL,CREN_POS,CREN_TIPO,CREN_FCH,CREN_MOV,CREN_FCH_MOD,CREN_FACTOR,CREN_CANT,CREN_OPEN,CREN_ART,CREN_CLF,
+    CREN_PRO,CREN_COS,CREN_TCAM,CREN_DSC1,CREN_DSC2,CREN_DSC3,CREN_DSC4,CREN_DSC5,CREN_CAR1US,CREN_CAR2US,CREN_CAR3US,
+    CREN_DSC_GLO,CREN_ARAN,CREN_EXE,CREN_IMP1,CREN_IMP2,CREN_ESTATAL,CREN_CAR1,CREN_CAR2,CREN_CAR3,CREN_CAR4,CREN_CAR5,
+    CREN_CAR6,CREN_CLI,CREN_OBRA,CREN_OBR_CON,CREN_ADIC,CREN_DSC_NOCR,CREN_FOL_NOCR,CREN_CANT_NOCR,CREN_SURT,CREN_DEV,
+    CREN_BACK,CREN_CANT2,CREN_FCH_ENV,CREN_FCH_REC,CREN_FCH_URE,CREN_FCH2,CREN_AUX,CREN_POS_AUX,CREN_MAS,CREN_IMP1_TAB,
+    CREN_IMP2_TAB,CREN_CLIENTE,CREN_CONCEPTO,CREN_STAT,CREN_MAS_COMENT,CREN_COMENT,CREN_CANT_AUX,CREN_FCH_CADUCIDAD,
+    CREN_FOL_PED_ESP,CREN_PRC_MAX,CREN_POS_REM,CREN_RP_CANT_SURT,CREN_RP_POS_REM,CREN_FCH_MODIF,CREN_GRAV_EXE,CREN_TOT_COS_CAR,
+    CREN_CONTRATO,CREN_TAR,CREN_TAR_IMP,CREN_AGRUP
+                ) VALUES (
+                    '2',
+                    '` + folio_orden + `',
+                    '` + item.posicion + `',
+                    '1',
+                    '` + item.fecha + `',
+                    'A',
+                    '',
+                    '` + item.factor + `',
+                    '` + item.cantidad + `',
+                    '0',
+                    '` + item.articulo + `',
+                    '` + item.clasificacion + `',
+                    '` + item.proveedor + `',
+                    '` + item.costo + `',
+                    '` + item.tipocambio + `',
+                    '` + item.descuento1 + `',
+                    '` + item.descuento2 + `',
+                    '` + item.descuento3 + `',
+                    '` + item.descuento4 + `',
+                    '` + item.descuento5 + `',
+                    '0',
+                    '0',
+                    '0',
+                    '0',
+                    '0',
+                    'N',
+                    '` + item.imp1 + `',
+                    '` + item.imp2 + `',
+                    '0',
+                    '0',
+                    '0',
+                    '0',
+                    '0',
+                    '0',
+                    '0',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '0',
+                    '',
+                    '0',
+                    '0',
+                    '0',
+                    '0',
+                    '0',
+                    '` + item.fecha + `',
+                    '` + item.fecha + `',
+                    '',
+                    '` + item.fechasf + `',
+                    '',
+                    '` + item.posicion + `',
+                    '',
+                    '` + item.imp1_tab + `',
+                    '` + item.imp2_tab + `',
+                    '',
+                    '',
+                    'A',
+                    '',
+                    '',
+                    '` + item.cantidad + `',
+                    '0',
+                    '',
+                    '0',
+                    '0',
+                    '0',
+                    '0',
+                    '` + item.fechasf + `',
+                    '0',
+                    '0',
+                    '',
+                    '0',
+                    '0',
+                    '0'
+                )`;
+            dbCOBOL.queryResult(sql, function(err, rows) {
+                if (err) {
+                    console.log("error en:"+ err);
+                    callback(err, null);
+                    respuesta=err;
+                    throw err;
+                    
+                } else {
+                   respuesta=rows;
+                }
+            });
+        }
+    }
+    console.log(respuesta);
+    callback(null, respuesta);
+};
+
 crearModel.insert_coment = (folio, posicion, fecha, fechasf, comentario, callback) => {
     console.log(comentario);
     if (dbCOBOL) {
