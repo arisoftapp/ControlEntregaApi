@@ -109,7 +109,7 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
     console.log("se empezara a recorrer el articulos");
     let respuesta;
     for (var item of articulos){
-        //console.log(item.articulo);
+        console.log(item.length);
         item.fecha = dateFormat(new Date(), "yyyy-mm-dd");
         item.fechasf = dateFormat(new Date(), "yyyymmdd");
         if (dbCOBOL) {
@@ -202,13 +202,14 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
                 if (err) {
                     console.log("error en el articulo "+item.articulo+" "+item.posicion);
                     console.log("error en:"+ err);
-                    callback(err, null);
+                    //callback(err, null);
                     respuesta=err;
-                    throw err;
+                    //throw err;
                     
                 } else {
                    respuesta=rows;
                    console.log("se inserto articulo:"+item.articulo+" "+item.posicion);
+                   
                    //console.log(rows);
                 }
             });
