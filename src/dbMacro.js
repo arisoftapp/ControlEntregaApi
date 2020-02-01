@@ -1,7 +1,7 @@
 var odbc = require("odbc");
 var connectionString = "DSN=Macro;UID=system;PWD=manager;DATABASE=DEMOINT";
 var db = new odbc.Database();
-/*
+
 db.open(connectionString, function(err) {
     if (err) {
 
@@ -15,7 +15,7 @@ db.open(connectionString, function(err) {
     
     ;
 });
-*/
+
 process.on('SIGINT', function() {
     db.close(function() {
         console.log('Database Connection Closed');
