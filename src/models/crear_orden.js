@@ -113,7 +113,6 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
         item.fecha = dateFormat(new Date(), "yyyy-mm-dd");
         item.fechasf = dateFormat(new Date(), "yyyymmdd");
         if (dbCOBOL) {
-            console.log("conexion abierta");
             var sql = `INSERT INTO PUBLIC.COMREN (
     CREN_OPE,CREN_FOL,CREN_POS,CREN_TIPO,CREN_FCH,CREN_MOV,CREN_FCH_MOD,CREN_FACTOR,CREN_CANT,CREN_OPEN,CREN_ART,CREN_CLF,
     CREN_PRO,CREN_COS,CREN_TCAM,CREN_DSC1,CREN_DSC2,CREN_DSC3,CREN_DSC4,CREN_DSC5,CREN_CAR1US,CREN_CAR2US,CREN_CAR3US,
@@ -213,10 +212,6 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
                    console.log("se inserto articulo:"+item.articulo+" "+item.posicion);
                 }
             });
-        }
-        else
-        {
-            console.log("conexion cerrada");
         }
     };
     console.log("respuesta :"+respuesta);
