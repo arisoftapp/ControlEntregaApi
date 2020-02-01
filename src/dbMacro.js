@@ -7,7 +7,13 @@ db.open(connectionString, function(err) {
 
         console.log('SERVIDOR MACROPRO NO RESPONDE - VERIFIQUE QUE ESTE ENCENDIDO');
         throw err;
-    };
+    }
+    else
+    {
+        console.log('conexion abierta');
+    }
+    
+    ;
 
     /*
     	Once the connection is open you can query it.
