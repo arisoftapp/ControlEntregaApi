@@ -108,7 +108,7 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
     //console.log(articulos);
     //console.log(folio_orden);
     console.log("se empezara a recorrer el articulos");
-    db.open(connectionString, function(err) {
+    dbCOBOL.open(connectionString, function(err) {
         if (err) {
     
             console.log('SERVIDOR MACROPRO NO RESPONDE - VERIFIQUE QUE ESTE ENCENDIDO');
