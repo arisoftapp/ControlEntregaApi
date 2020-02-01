@@ -288,7 +288,9 @@ module.exports = function(app) {
             folio_previo: req.body.folio_previo,
             folio_orden:req.body.folio_orden
         };
+        const data=req.body;
         console.log(json);
+        console.log(data);
         res.json({
             success: true,
             message: "Se creo"
