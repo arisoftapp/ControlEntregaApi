@@ -282,7 +282,7 @@ module.exports = function(app) {
     });
 
 
-    app.post('crear_orden',(req,res)=>{
+    app.post('/crear_orden',(req,res)=>{
         console.log("crear_orden");
         let json=req.body;
         console.log(json);
