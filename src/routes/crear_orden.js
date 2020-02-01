@@ -291,8 +291,9 @@ module.exports = function(app) {
         const articulos=req.body.articulos;
         console.log(json);
         console.log(articulos);
-        console.log(articulos.articulo);
-        console.log(req.body.articulos.articulo);
+        for (var item of articulos){
+            console.log(item.articulo);
+        }
         res.json({
             success: true,
             message: "Se creo"
