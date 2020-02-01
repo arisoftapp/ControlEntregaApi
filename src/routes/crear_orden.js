@@ -283,8 +283,11 @@ module.exports = function(app) {
 
 
     app.post('/crear_orden',(req,res)=>{
-        console.log("crear_orden");
-        let json=req.body.orden;
+        
+        const json = {
+            folio_previo: req.body.folio_previo,
+            folio_orden:req.body.folio_orden
+        };
         console.log(json);
         res.json({
             success: true,
