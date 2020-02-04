@@ -109,7 +109,7 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
     
     
         for (var item of articulos){
-            console.log(item.posicion);
+            
             item.fecha = dateFormat(new Date(), "yyyy-mm-dd");
             item.fechasf = dateFormat(new Date(), "yyyymmdd");
            
@@ -200,7 +200,8 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
                     )`;
                     if(dbCOBOL)
                     {
-                        dbCOBOL.queryResult(sql, function(err, rows) {
+                        dbCOBOL.queryResult(sql, function(item,err, rows) {
+                            console.log(item.posicion);
                             if (err) {
                                 console.log("error en el articulo "+item.articulo+" "+item.posicion);
                                 console.log("error en:"+ err);
@@ -220,7 +221,7 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
         };
     
     console.log("respuesta :"+respuesta);
-    //callback(null, respuesta);
+    callback(null, respuesta);
 };
 
 crearModel.insert_coment = (folio, posicion, fecha, fechasf, comentario, callback) => {
