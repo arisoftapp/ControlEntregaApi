@@ -281,18 +281,37 @@ module.exports = function(app) {
         });
     });
 
+    function pause(milisegundos){
+        var dt=new Date();
+        while((new Date())-dt<=milisegundos){}
+    }
+
 
     app.post('/crear_orden',(req,res)=>{
- 
         const folio_orden=req.body.folio_orden;
         const articulos=req.body.articulos;
+
+        
+        //console.log('inicio');
+        //console.log(articulos.length);
+        //console.log(articulos);
         /*
-        console.log(json);
-        console.log(articulos);
+        let cont=0;
         for (var item of articulos){
+            var art=item.articulo;
+            cont++;
+            console.log(cont);
             console.log(item.articulo);
-        }
-        */
+            pause(1000);
+            */
+            /*
+            setTimeout(function(art){
+                console.log(art);
+                console.log('espero 3 segundos');
+                
+            },3000);
+            */
+            
        crear_orden.insert_comren_json(folio_orden, articulos, (err, data) => {
         if (err) {
             res.status(500).send({
@@ -311,6 +330,32 @@ module.exports = function(app) {
 
     });
 
+    });
+    app.post('/crear_comentarios', (req, res) => {
+        let folio_orden = req.body.folio_orden;
+        
+        let comentarios = req.body.comentarios;
+        let fecha = dateFormat(new Date(), "yyyy-mm-dd");
+        let fechasf = dateFormat(new Date(), "yyyymmdd");
+        
+        crear_orden.insert_coment_json(folio_orden, fecha, fechasf, comentarios, (err, data) => {
+            if (err) {
+                res.status(500).send({
+                    success: false,
+                    message: 'Error al insertar comentarios:' + err
+                });
+
+            } else {
+                res.json({
+                    success: true,
+                    message: "Se creo",
+                    respuesta: data,
+                });
+
+            }
+
+        });
+        
     });
 
 }
