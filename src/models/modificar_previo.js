@@ -67,7 +67,10 @@ modificarModel.updatePrevioComren = (folio,cantidad,articulo,callback) => {
         });
     }
 };
-
+function pause(milisegundos){
+    var dt=new Date();
+    while((new Date())-dt<=milisegundos){}
+}
 modificarModel.modificar_previo_json = (folio_previo,articulos, callback) => {
 
     let respuesta;
