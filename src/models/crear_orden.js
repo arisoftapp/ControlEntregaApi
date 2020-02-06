@@ -233,6 +233,8 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
                                 callback(null, respuesta);
                                
                                }
+
+                               
                             }
                             count++;
                         });

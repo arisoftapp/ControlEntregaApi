@@ -49,7 +49,33 @@ module.exports = function(app) {
 
         });
     });
+    app.post('/crear_comentarios', (req, res) => {
+        let folio_orden = req.body.folio_orden;
+        
+        let comentarios = req.body.comentarios;
+        let fecha = dateFormat(new Date(), "yyyy-mm-dd");
+        let fechasf = dateFormat(new Date(), "yyyymmdd");
+        /*
+        crear_orden.insert_coment_json(folio_orden, fecha, fechasf, comentarios, (err, data) => {
+            if (err) {
+                res.status(500).send({
+                    success: false,
+                    message: 'Error al insertar comentarios:' + err
+                });
 
+            } else {
+                res.json({
+                    success: true,
+                    message: "Se creo",
+                    respuesta: data,
+                });
+
+            }
+
+        });
+        */
+        
+    });
 
 
 }
