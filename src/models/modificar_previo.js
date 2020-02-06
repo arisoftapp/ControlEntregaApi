@@ -73,7 +73,7 @@ modificarModel.modificar_previo_json = (folio_previo,articulos, callback) => {
     let respuesta;
     let total=articulos.length;
     let count=1;
-        for (var item of comentarios){
+        for (var item of articulos){
            pause(1000);
            var sql = `UPDATE PUBLIC.COMREN 
            SET 
