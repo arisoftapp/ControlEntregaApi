@@ -49,7 +49,7 @@ module.exports = function(app) {
 
         });
     });
-    app.post('/modificar_previo', (req, res) => {
+    app.post('/modificar_previo_json', (req, res) => {
         let folio_previo = req.body.folio_previo;
         let articulos = req.body.articulos;
 
