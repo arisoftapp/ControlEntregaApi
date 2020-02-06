@@ -68,6 +68,55 @@ modificarModel.updatePrevioComren = (folio,cantidad,articulo,callback) => {
     }
 };
 
+modificarModel.modificar_previo_json = (folio_previo,articulos, callback) => {
+
+    let respuesta;
+    let total=articulos.length;
+    let count=1;
+        for (var item of comentarios){
+           pause(1000);
+           var sql = `UPDATE PUBLIC.COMREN 
+           SET 
+           CREN_SURT = '` + item.cantidad + `'
+           WHERE CREN_FOL = '` + folio_previo + `'
+           AND CREN_ART='` + item.articulo + `'
+           AND CREN_OPE=1
+           `;
+                    if(dbCOBOL)
+                    {
+                        dbCOBOL.queryResult(sql, function(err, rows) {
+   
+                            if (err) {
+                                //console.log("error en el articulo "+item.articulo+" "+item.posicion);
+                                //callback(err, null);
+                                respuesta=err;
+                                //throw err;
+                                if(count==1)
+                                {
+                                    
+                                    console.log("error en:"+ err);
+                                    callback(err, null);
+                                    throw err;
+                                }
+                            } else {
+                               respuesta=rows;
+                               //console.log(rows);
+                               //console.log("se inserto articulo:"+item.articulo+" "+item.posicion);
+                               if(count==1)
+                               {
+                                console.log(rows);
+                                callback(null, respuesta);
+                               
+                               }
+                            }
+                            count++;
+                        });
+                    }
+
+            
+        };
+    //callback(null, respuesta);
+};
 
 
 module.exports = modificarModel;

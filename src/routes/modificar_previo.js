@@ -53,10 +53,10 @@ module.exports = function(app) {
         let folio_previo = req.body.folio_previo;
         let articulos = req.body.articulos;
 
-        console.log(folio_previo);
-        console.log(articulos);
-        /*
-        crear_orden.insert_coment_json(folio_orden, fecha, fechasf, comentarios, (err, data) => {
+        //console.log(folio_previo);
+        //console.log(articulos);
+        
+        modificar_previo.modificar_previo_json(folio_previo,articulos, (err, data) => {
             if (err) {
                 res.status(500).send({
                     success: false,
@@ -73,7 +73,7 @@ module.exports = function(app) {
             }
 
         });
-        */
+        
         
     });
 
