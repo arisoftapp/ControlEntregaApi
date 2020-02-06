@@ -55,7 +55,7 @@ backModel.modificar_backorder_json = (almacen,articulos, callback) => {
                                 if(count==1)
                                 {
                                     console.log("error en:"+ err);
-                                    callback(err, null);
+                                    //callback(err, null);
                                     throw err;
                                 }
                             } else {
@@ -65,7 +65,7 @@ backModel.modificar_backorder_json = (almacen,articulos, callback) => {
                                if(count==1)
                                {
                                 console.log(rows);
-                                callback(null, respuesta);
+                                //callback(null, respuesta);
                                
                                }
                             }
@@ -75,7 +75,7 @@ backModel.modificar_backorder_json = (almacen,articulos, callback) => {
 
             
         };
-    //callback(null, respuesta);
+    callback(null, respuesta);
 };
 backModel.modificarBack = (reqData,cantidad,callback) => {
     if (dbCOBOL) {

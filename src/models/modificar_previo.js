@@ -98,7 +98,7 @@ modificarModel.modificar_previo_json = (folio_previo,articulos, callback) => {
                                 {
                                     
                                     console.log("error en:"+ err);
-                                    callback(err, null);
+                                    //callback(err, null);
                                     throw err;
                                 }
                             } else {
@@ -108,7 +108,7 @@ modificarModel.modificar_previo_json = (folio_previo,articulos, callback) => {
                                if(count==1)
                                {
                                 console.log(rows);
-                                callback(null, respuesta);
+                                //callback(null, respuesta);
                                
                                }
                             }
@@ -118,7 +118,7 @@ modificarModel.modificar_previo_json = (folio_previo,articulos, callback) => {
 
             
         };
-    //callback(null, respuesta);
+    callback(null, respuesta);
 };
 
 

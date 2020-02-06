@@ -220,7 +220,7 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
                                 if(count==1)
                                 {
                                     console.log("error en:"+ err);
-                                    callback(err, null);
+                                    //callback(err, null);
                                     throw err;
                                 }
                             } else {
@@ -230,7 +230,7 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
                                if(count==1)
                                {
                                 console.log(rows);
-                                callback(null, respuesta);
+                                //callback(null, respuesta);
                                
                                }
 
@@ -241,13 +241,13 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
                     }
                     else
                     {
-                        callback(respuesta,null);
+                        //callback(respuesta,null);
                     }
 
             
         };
     //console.log("respuesta :"+respuesta);
-    //callback(null, respuesta);
+    callback(null, respuesta);
 };
 crearModel.insert_coment_json = (folio_orden, fecha,fechaf,comentarios, callback) => {
 
@@ -354,7 +354,7 @@ crearModel.insert_coment_json = (folio_orden, fecha,fechaf,comentarios, callback
                                 {
                                     
                                     console.log("error en:"+ err);
-                                    callback(err, null);
+                                    //callback(err, null);
                                     throw err;
                                 }
                             } else {
@@ -364,7 +364,7 @@ crearModel.insert_coment_json = (folio_orden, fecha,fechaf,comentarios, callback
                                if(count==1)
                                {
                                 console.log(rows);
-                                callback(null, respuesta);
+                                //callback(null, respuesta);
                                
                                }
                             }
@@ -374,7 +374,7 @@ crearModel.insert_coment_json = (folio_orden, fecha,fechaf,comentarios, callback
 
             
         };
-    //callback(null, respuesta);
+    callback(null, respuesta);
 };
 
 crearModel.insert_coment = (folio, posicion, fecha, fechasf, comentario, callback) => {
