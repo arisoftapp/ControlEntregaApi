@@ -27,15 +27,18 @@ consurModel.getPrevioCompra = (codigo, fecha, almacen, callback) => {
         CREN_IMP1 AS 'imp1',
         CREN_IMP2 AS 'imp2',
         CREN_IMP1_TAB AS 'imp1_tab',
-        CREN_IMP2_TAB AS 'imp2_tab'
+        CREN_IMP2_TAB AS 'imp2_tab',
+        EXI_ORD as 'cantbackorder'
 
-        FROM PUBLIC.COMREN, PUBLIC.INVART,PUBLIC.COMDOC
+        FROM PUBLIC.COMREN, PUBLIC.INVART,PUBLIC.COMDOC,PUBLIC.INVEXI
         WHERE PUBLIC.COMREN.CREN_OPE=1
         AND PUBLIC.COMREN.CREN_FOL='` + codigo + `'
         AND PUBLIC.COMREN.CREN_FCH='` + fecha + `'
         AND PUBLIC.COMDOC.CDOC_ALM='` + almacen + `'
         AND PUBLIC.INVART.ART_COD1=PUBLIC.COMREN.CREN_ART
         AND PUBLIC.COMDOC.CDOC_FOL=PUBLIC.COMREN.CREN_FOL
+        AND PUBLIC.INVEXI.EXI_ALM='` + almacen + `'
+        AND PUBLIC.INVEXI.EXI_ART=PUBLIC.COMREN.CREN_ART
     
     `, function(err, rows) {
             if (err) {

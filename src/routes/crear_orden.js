@@ -316,7 +316,7 @@ module.exports = function(app) {
         if (err) {
             res.status(500).send({
                 success: false,
-                message: 'Error al crear comren:' + err.message
+                message: 'Error al crear orden:' + err.message+' '+data
             });
 
         } else {

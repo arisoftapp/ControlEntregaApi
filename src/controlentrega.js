@@ -16,6 +16,7 @@ server.use(morgan('dev'));
 server.use(bodyParser.json());
 // Rutas
 //require('./routes/authenticate')(server);
+
 require('./routes/control_entrega')(server);
 require('./routes/login')(server);
 require('./routes/almacenes')(server);

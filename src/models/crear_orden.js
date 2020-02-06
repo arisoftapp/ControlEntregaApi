@@ -110,9 +110,12 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
     //console.log("se empezara a recorrer el articulos");
     let respuesta;
 
-    
+    //console.log(articulos.length);
+    let total=articulos.length;
+    let count=1;
+    let validar=false;
         for (var item of articulos){
-            //console.log(articulos.count);
+            
             item.fecha = dateFormat(new Date(), "yyyy-mm-dd");
             item.fechasf = dateFormat(new Date(), "yyyymmdd");
            pause(1000);
@@ -205,32 +208,52 @@ crearModel.insert_comren_json = (folio_orden, articulos, callback) => {
                     if(dbCOBOL)
                     {
                         dbCOBOL.queryResult(sql, function(err, rows) {
+                            //console.log(count);
+                            
                             //console.log(item.posicion);
                             if (err) {
                                 //console.log("error en el articulo "+item.articulo+" "+item.posicion);
-                                //console.log("error en:"+ err);
+                                
                                 //callback(err, null);
                                 respuesta=err;
                                 //throw err;
+                                if(count==1)
+                                {
+                                    console.log("error en:"+ err);
+                                    callback(err, null);
+                                    throw err;
+                                }
                             } else {
                                respuesta=rows;
                                //console.log(rows);
                                //console.log("se inserto articulo:"+item.articulo+" "+item.posicion);
+                               if(count==1)
+                               {
+                                console.log(rows);
+                                callback(null, respuesta);
+                               
+                               }
                             }
+                            count++;
                         });
+                    }
+                    else
+                    {
+                        callback(respuesta,null);
                     }
 
             
         };
     //console.log("respuesta :"+respuesta);
-    callback(null, respuesta);
+    //callback(null, respuesta);
 };
 crearModel.insert_coment_json = (folio_orden, fecha,fechaf,comentarios, callback) => {
 
     let respuesta;
+    let total=comentarios.length;
+    let count=1;
         for (var item of comentarios){
            pause(1000);
-          
             var sql = `INSERT INTO PUBLIC.COMREN (
     CREN_OPE,CREN_FOL,CREN_POS,CREN_TIPO,CREN_FCH,CREN_MOV,CREN_FCH_MOD,CREN_FACTOR,CREN_CANT,CREN_OPEN,CREN_ART,CREN_CLF,
     CREN_PRO,CREN_COS,CREN_TCAM,CREN_DSC1,CREN_DSC2,CREN_DSC3,CREN_DSC4,CREN_DSC5,CREN_CAR1US,CREN_CAR2US,CREN_CAR3US,
@@ -319,22 +342,37 @@ crearModel.insert_coment_json = (folio_orden, fecha,fechaf,comentarios, callback
                     if(dbCOBOL)
                     {
                         dbCOBOL.queryResult(sql, function(err, rows) {
-                            //console.log(item.posicion);
+   
                             if (err) {
-     
+                                //console.log("error en el articulo "+item.articulo+" "+item.posicion);
                                 //callback(err, null);
                                 respuesta=err;
                                 //throw err;
+                                if(count==1)
+                                {
+                                    
+                                    console.log("error en:"+ err);
+                                    callback(err, null);
+                                    throw err;
+                                }
                             } else {
                                respuesta=rows;
-
+                               //console.log(rows);
+                               //console.log("se inserto articulo:"+item.articulo+" "+item.posicion);
+                               if(count==1)
+                               {
+                                console.log(rows);
+                                callback(null, respuesta);
+                               
+                               }
                             }
+                            count++;
                         });
                     }
 
             
         };
-    callback(null, respuesta);
+    //callback(null, respuesta);
 };
 
 crearModel.insert_coment = (folio, posicion, fecha, fechasf, comentario, callback) => {
