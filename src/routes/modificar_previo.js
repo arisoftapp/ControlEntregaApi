@@ -49,12 +49,12 @@ module.exports = function(app) {
 
         });
     });
-    app.post('/crear_comentarios', (req, res) => {
-        let folio_orden = req.body.folio_orden;
-        
-        let comentarios = req.body.comentarios;
-        let fecha = dateFormat(new Date(), "yyyy-mm-dd");
-        let fechasf = dateFormat(new Date(), "yyyymmdd");
+    app.post('/modificar_previo', (req, res) => {
+        let folio_previo = req.body.folio_previo;
+        let articulos = req.body.articulos;
+
+        console.log(folio_previo);
+        console.log(articulos);
         /*
         crear_orden.insert_coment_json(folio_orden, fecha, fechasf, comentarios, (err, data) => {
             if (err) {
