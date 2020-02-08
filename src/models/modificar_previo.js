@@ -75,6 +75,8 @@ modificarModel.modificar_previo_json = (folio_previo,articulos, callback) => {
 
     let respuesta;
     let total=articulos.length;
+    console.log(articulos);
+    console.log(folio_previo);
     let count=1;
         for (var item of articulos){
            pause(1000);
