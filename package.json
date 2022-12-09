@@ -13,7 +13,7 @@
         "cors": "^2.8.4",
         "dateformat": "^3.0.3",
         "dbc": "^3.0.0",
-        "express": "^4.16.3",
+        "express": "^4.17.3",
         "express-async-errors": "^3.0.0",
         "forever": "^0.15.3",
         "forever-monitor": "^1.7.1",
